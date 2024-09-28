@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+
+music_default="src/test.alda"
+music="src/${1%.alda}.alda"
+cmd=$(basename $0)
+
+help() {
+    echo "Usage:"
+    echo "\t${cmd} [music]"
+    echo
+    echo "Available music:"
+    for f in src/*; do
+        t=$(basename $f)
+        printf '\t%s\n' "${t%.alda}"
+    done
+}
+
+if [ -z $1 ]; then
+    alda play -f $music_default
+elif [ -e "help" ]; then
+    help
+elif [ -e $music ]; then
+    alda play -f $music
+else
+    echo "ERROR! Music not found: ${1}"
+    help
+fi

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-music_default="src/test.alda"
+music_default="src/runaway.alda"
 music="src/${1%.alda}.alda"
 cmd=$(basename $0)
 

@@ -1,26 +1,26 @@
 #!/usr/bin/env bash
 
-music_default="src/runaway.alda"
-music="src/${1%.alda}.alda"
-cmd=$(basename $0)
+music_default="$SRC_DIR/runaway.alda"
+music="$SRC_DIR/${1%.alda}.alda"
+cmd=$(basename "$0")
 
 help() {
     echo "Usage:"
-    printf "\t%s [music]" $cmd
+    printf "\t%s [music]" "$cmd"
     echo
     echo "Available music:"
-    for f in src/*; do
-        t=$(basename $f)
+    for f in "$SRC_DIR"/*; do
+        t=$(basename "$f")
         printf '\t%s\n' "${t%.alda}"
     done
 }
 
-if [ -z $1 ]; then
-    alda play -f $music_default
-elif [ -e "help" ]; then
+if [ -z "$1" ]; then
+    alda play -f "$music_default"
+elif [ "$1" = 'help' ]; then
     help
-elif [ -e $music ]; then
-    alda play -f $music
+elif [ -e "$music" ]; then
+    alda play -f "$music"
 else
     echo "ERROR! Music not found: ${1}"
     help

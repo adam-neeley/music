@@ -12,19 +12,19 @@
         (system: f { pkgs = import nixpkgs { inherit system; }; });
     in {
       packages = forEachSupportedSystem ({ pkgs }: {
-        # default = pkgs.mkShellScriptBin "music" ''
-        #   #
-        #   alda play -f
-        # '';
         default = pkgs.stdenv.mkDerivation {
           name = "music";
           src = ./.;
-          buildInputs = [ pkgs.alda ];
+          buildInputs = with pkgs; [ makeWrapper alda coreutils ];
 
-          buildPhase = ''
+          installPhase = ''
             mkdir -p $out/bin $out/src
-            cp ./bin/* $out/bin/
-            cp ./src/* $out/src/
+            cp ${./bin/music} $out/bin/music
+            cp ${./src}/* $out/src
+            chmod +x $out/bin/music
+            wrapProgram $out/bin/music \
+              --set PATH ${pkgs.alda}/bin:${pkgs.coreutils}/bin \
+              --set SRC_DIR $out/src
           '';
 
         };

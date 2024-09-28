@@ -6,7 +6,7 @@ cmd=$(basename $0)
 
 help() {
     echo "Usage:"
-    echo "\t${cmd} [music]"
+    printf "\t%s [music]" $cmd
     echo
     echo "Available music:"
     for f in src/*; do

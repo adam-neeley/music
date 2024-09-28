@@ -13,7 +13,8 @@
     in {
       packages = forEachSupportedSystem ({ pkgs }: {
         default = pkgs.stdenv.mkDerivation {
-          name = "music";
+          pname = "music";
+          version = "0001";
           src = ./.;
           buildInputs = with pkgs; [ makeWrapper alda coreutils ];
 
